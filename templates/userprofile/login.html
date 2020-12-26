@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% load static %}
+{% block title %} 登录 {% endblock title %}
+{% block style %} #msg{width: 50%;line-height: 40px;font-size: 14px;text-align: center;} {% endblock style %}
+{% block content %}
+<div class="jq22-container" style="padding-top:100px">
+    <div class="login-wrap">
+        <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">登录</label>
+			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"><a href='{% url "userprofile:register" %}'>注册</a></label>
+			<div class="login-form">
+                <form method="post" action=".">
+                
+                {% csrf_token %}
+                <!-- 账号 -->
+                <div class="form-group">
+                    <label for="username">账号</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <!-- 密码 -->
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <!--滑块验证-->
+                <div class="group">
+							<div class="container">
+							    <div id="captcha" style="position: relative" data-type="password"></div>
+								<div id="msg"></div>
+							</div>
+						</div>
+                
+                <!-- 提交按钮 -->
+                <button type="submit" class="btn btn-primary">提交</button>
+                <div class="hr"></div>
+						<div class="foot-lnk">
+							<a href='{% url "password_reset_recover" %}'>忘记密码？</a>
+				</div>
+                
+            </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+ {% block script %}<script src="js/jigsaw.js"></script>
+ <script>
+jigsaw.init(document.getElementById('captcha'), function () {
+  	 flag=true;
+    document.getElementById('msg').innerHTML = '登录成功！'  
+  })
+</script> 
+ {% endblock script %}
+{% comment %} <script src="js/jigsaw.js"></script> {% endcomment %}
+{% comment %} {% block script %}
+{% endblock script %}
+<script>
+jigsaw.init(document.getElementById('captcha'), function () {
+  	 flag=true;
+    document.getElementById('msg').innerHTML = '登录成功！'  
+  })
+</script>  {% endcomment %}
+{% endblock content %}
